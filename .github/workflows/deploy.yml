@@ -34,6 +34,13 @@ jobs:
 
         runs-on: ubuntu-latest
         steps:
+            - name: ssh setup
+              run: | 
+                mkdir -p ~/.ssh
+                echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/meinPrivateKey
+                chmod 400 ~/.ssh/meinPrivateKey
+                ssh-keyscan -H ${{secrets.EC2_IP}}  >> ~/.ssh/known_hosts    
+                 
             - name: install cowsay
               run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo apt update -y && sudo apt install -y cowsay"
 
