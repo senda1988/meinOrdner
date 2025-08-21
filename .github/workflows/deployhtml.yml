@@ -19,8 +19,10 @@ jobs:
 
         - name: cpy project to EC2
           run: |
-               scp -i ~/.ssh/meinPrivateKey Dockerfile index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/index.html
-               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo cp /home/ubuntu/index.html /var/www/html/index.html"
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "mkdir -p /home/ubuntu/frontend"
+               scp -i ~/.ssh/meinPrivateKey Dockerfile index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/frontend/
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo cp /home/ubuntu/frontend/index.html /var/www/html/index.html"
+
 
     docker-test-job:
       runs-on: ubuntu-latest
