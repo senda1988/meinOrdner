@@ -25,6 +25,6 @@ jobs:
               run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "mkdir -p ~/meinOrdner"
 
             - name: Datei kopieren
-              run: scp -i ~/.ssh/meinPrivateKey ./meinOrdner/info.txt ubuntu@${{secrets.EC2_IP}}:~/meinOrdner/info.txt
+              run: scp -i ~/.ssh/meinPrivateKey ./info.txt ubuntu@${{secrets.EC2_IP}}:~/meinOrdner/info.txt
 
             
