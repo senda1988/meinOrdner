@@ -30,4 +30,14 @@ jobs:
             - name: check
               run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "ls -l ~/meinOrdner && head -n 1 ~/meinOrdner/info.txt"
 
+    cowsay_installieren:
+
+        runs-on: ubuntu-latest
+        steps:
+            - name: install cowsay
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo apt update -y && sudo apt install -y cowsay"
+
+            - name: Cowsay ausführen
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} 'cowsay "Hallo aus den GitHub Actions"'
+
             
