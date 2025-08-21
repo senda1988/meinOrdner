@@ -18,7 +18,8 @@ jobs:
                 ssh-keyscan -H ${{secrets.EC2_IP}}  >> ~/.ssh/known_hosts  
 
         - name: cpy project to EC2
-          run: scp -i ~/.ssh/meinPrivateKey index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/index.html
+          run: |
+               scp -i ~/.ssh/meinPrivateKey index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/index.html
                ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo cp /home/ubuntu/index.html /var/www/html/index.html"
 
     docker-test-job:
@@ -39,4 +40,4 @@ jobs:
                 ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "sudo usermod -aG docker ubuntu"
 
             - name: start nginx container on ec2 instance
-              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "docker run -d -p 6060:80 nginx"
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "docker run -d -p 8081:80 nginx"
