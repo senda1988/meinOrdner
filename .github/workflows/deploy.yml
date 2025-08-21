@@ -27,4 +27,7 @@ jobs:
             - name: Datei kopieren
               run: scp -i ~/.ssh/meinPrivateKey ./info.txt ubuntu@${{secrets.EC2_IP}}:~/meinOrdner/info.txt
 
+            - name: check
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "ls -l ~/meinOrdner && head -n 1 ~/meinOrdner/info.txt"
+
             
